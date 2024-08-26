@@ -1,0 +1,215 @@
+$data-unit-right: 6px;
+// 去除下拉的三角
+.el-popper {
+  border-width: 0px !important;
+  .popper__arrow {
+    border: none;
+  }
+
+  &__arrow:before {
+    content: '' !important;
+    border: none !important;
+    height: 0px !important;
+    width: 0px !important;
+  }
+}
+.el-menu {
+  background: transparent !important;
+  color: var(--theme-color);
+  border-right: 0px !important;
+  width: 100%;
+  .el-sub-menu__title {
+    color: var(--inactive-color);
+    padding-left: 0px !important;
+    &:hover {
+      background-color: transparent !important;
+    }
+  }
+}
+// 日期
+.el-picker-panel {
+  background: #262626 !important;
+  box-shadow: 0px 9px 28px 1px rgba(0, 0, 0, 0.2);
+
+  //选中项日期高亮
+  .el-date-table {
+    .in-range div {
+      background-color: #525252 !important;
+    }
+
+    .start-date span,
+    .end-date span {
+      background-color: #2deb79 !important;
+      color: #ffffff !important;
+
+      &:hover {
+        color: #000000 !important;
+      }
+    }
+  }
+}
+
+// 日期范围
+.el-range-editor .el-range-input {
+  background: none !important;
+}
+
+.el-date-range-picker {
+  .el-date-table td.next-month,
+  .el-date-table td.prev-month {
+    opacity: 0 !important;
+    pointer-events: none;
+  }
+}
+
+// 下拉
+.el-select-dropdown,
+.el-autocomplete-suggestion {
+  z-index: 1001;
+  border: none !important;
+  // 无数据时下拉框样式
+  .el-select-dropdown__empty {
+    background: #3e3e3e;
+    border-radius: 6px;
+  }
+}
+
+.el-select {
+  &__wrapper {
+    background-color: #3d3f43 !important;
+    box-shadow: 0 0 0 0px #2deb79 inset !important;
+    border: 1px solid #3d3f43 !important;
+    &:focus,
+    &:hover {
+      border: 1px solid #2deb79 !important;
+    }
+  }
+}
+// 下拉框
+.el-select-dropdown {
+  background-color: #3d3f43;
+  .el-scrollbar {
+    background: #3d3f43;
+    border-radius: 12px 12px 12px 12px !important;
+    .el-select-dropdown__wrap,
+    .el-scrollbar__wrap {
+      margin-right: 0px;
+    }
+
+    .el-select-dropdown__item {
+      background-color: transparent;
+      font-size: 16px;
+      color: #ffffff;
+      padding: 0 15px;
+      margin: 1px 0;
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: row;
+
+      &.is-selected {
+        color: #ffffff;
+        font-weight: normal;
+        background-color: rgba(27, 206, 98, 0.15);
+        margin: 1px 6px;
+        border-radius: 4px;
+        padding: 0 9px;
+      }
+
+      &:focus,
+      &:hover {
+        background-color: rgba(27, 206, 98, 0.15) !important;
+        margin: 1px 6px;
+        border-radius: 6px;
+        color: #ffffff;
+        padding: 0 9px;
+      }
+    }
+  }
+}
+
+// 输入框——自动弹出选择
+.el-autocomplete-suggestion {
+  color: #ffffff;
+  opacity: 1;
+  .el-scrollbar {
+    background: #3e3e3e;
+    border-radius: 6px !important;
+
+    .el-autocomplete-suggestion__wrap {
+      margin-right: 0px;
+
+      .el-autocomplete-suggestion__list {
+        background-color: transparent;
+        padding: 0 9px;
+
+        > li {
+          padding: 0 6px;
+          .value {
+            color: #f2f2f2;
+          }
+          .desc {
+            font-size: 13px;
+            line-height: 13px;
+            padding-bottom: 6px;
+          }
+
+          &.house,
+          &:hover {
+            background-color: #525252;
+            border-radius: 4px;
+            color: #2deb79;
+          }
+        }
+      }
+    }
+  }
+}
+
+.el-input {
+  background-color: #3d3f43;
+  border-radius: 6px 6px 6px 6px;
+
+  &__wrapper,
+  &__inner {
+    background-color: transparent !important;
+  }
+  &__wrapper {
+    box-shadow: 0 0 0 0px #2deb79 inset !important;
+    border: 1px solid #3d3f43 !important;
+    &:focus,
+    &:hover {
+      border: 1px solid #2deb79 !important;
+    }
+  }
+  &__inner {
+    color: #ffffff;
+    border-width: 0;
+  }
+}
+
+.numrule {
+  &.el-input-number[data-unit] {
+    --el-input-number-unit-offset-x: calc(#{$data-unit-right});
+  }
+  &.el-input-number--small[data-unit] {
+    --el-input-number-unit-offset-x: calc(#{$data-unit-right});
+  }
+  &.el-input-number[data-unit]::after {
+    content: attr(data-unit);
+    position: absolute;
+    top: 0;
+    right: var(--el-input-number-unit-offset-x);
+    color: #8d8d8d;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  &.el-input-number[data-unit] .el-input__inner {
+    padding-right: calc(1em + var(--el-input-number-unit-offset-x) + 4px);
+  }
+  :deep(input[type='text']) {
+    -moz-appearance: textfield !important;
+    appearance: none;
+    text-align: left;
+  }
+}

@@ -1,0 +1,61 @@
+// 全局 CSS 变量
+// @import './variables.module.scss';
+@import './common.scss';
+@import './custom.module.scss'; // // Transition
+
+// 全局
+$bodyBg: #343734;
+// $sideBarWidth: 210px;
+$sideBarWidth: 12%;
+
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  background-color: $bodyBg;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial,
+    sans-serif;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2em;
+  width: 100%;
+  height: 100vh;
+  @media screen and (max-width: 480px) {
+    padding: 0.8em;
+  }
+}
+
+#app {
+  height: 100%;
+  > div {
+    height: 100%;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a,
+a:focus,
+a:hover {
+  color: inherit;
+  outline: none;
+  text-decoration: none;
+}
+
+div:focus {
+  outline: none;
+}
