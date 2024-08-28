@@ -1,38 +1,30 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useUserStore } from '@/stores/user'
-import { useRouter } from 'vue-router'
-const router = useRouter()
-const userStore = useUserStore()
+import { ref } from 'vue';
+import { useUserStore } from '@/stores/user';
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const userStore = useUserStore();
 const form = ref({
   username: '',
   password: ''
-})
+});
 
 const onSubmit = () => {
   userStore.login(form.value).then(() => {
     // 登录成功后跳转到首页
-    router.push({ path: '/' })
-  })
-}
+    router.push({ path: '/' });
+  });
+};
 </script>
 <template>
   <div class="login-box">
     <div class="left">
       <el-form :model="form">
         <el-form-item prop="username">
-          <el-input
-            v-model="form.username"
-            placeholder="用户名"
-          />
+          <el-input v-model="form.username" placeholder="用户名" />
         </el-form-item>
         <el-form-item prop="password">
-          <el-input
-            v-model="form.password"
-            placeholder="密码"
-            type="password"
-            show-password
-          />
+          <el-input v-model="form.password" placeholder="密码" type="password" show-password />
         </el-form-item>
         <div class="input-block">
           <span class="forgot"><a href="#">忘记密码</a></span>

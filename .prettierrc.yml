@@ -1,0 +1,11 @@
+semi: true
+singleQuote: true
+printWidth: 100
+tabWidth: 2
+useTabs: false
+bracketsSpacing: true # // 对象中的空格
+bracketSameLine: false # // 对象中的空格
+endOfLine: 'auto' # // 结尾是 \n \r \n \r
+trailingComma: 'none' # // 结尾处不加逗号
+jsxBracketSameLine: false # 多属性html标签的‘>’折行放置
+overrides: [{ files: '*.vue', options: { printWidth: 100 } }]

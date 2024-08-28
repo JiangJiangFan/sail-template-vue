@@ -1,14 +1,14 @@
-import { requestParams, resultError, resultSuccess } from './_utils'
+import { requestParams, resultError, resultSuccess } from './_utils';
 export default [
   {
     url: '/apis/login',
     method: 'post',
     response: (res: requestParams) => {
-      const { username, password } = res.body
+      const { username, password } = res.body;
       if (username === 'Jiang' && password === '123456') {
-        return resultSuccess('jhgfaasdfgrqawgfvADbgzhbdfaf')
+        return resultSuccess('jhgfaasdfgrqawgfvADbgzhbdfaf');
       } else {
-        return resultError('账户或密码错误')
+        return resultError('账户或密码错误');
       }
     }
   },
@@ -16,13 +16,13 @@ export default [
     url: '/apis/info',
     method: 'get',
     response: (res: requestParams) => {
-      const params = res.query
+      const params = res.query;
 
       if (params !== '') {
-        return resultSuccess({ username: 'Jiang' })
+        return resultSuccess({ username: 'Jiang' });
       } else {
-        return resultError('token 已过期', { code: 10004 })
+        return resultError('token 已过期', { code: 10004 });
       }
     }
   }
-]
+];

@@ -1,7 +1,7 @@
-import { useUserStore } from '@/stores/user'
-import isWhiteList from '@/utils/white-list'
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-const Layouts = () => import('@/layout/index.vue')
+import { useUserStore } from '@/stores/user';
+import isWhiteList from '@/utils/white-list';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+const Layouts = () => import('@/layout/index.vue');
 
 export const constantRoutes: RouteRecordRaw[] = [
   {
@@ -10,7 +10,9 @@ export const constantRoutes: RouteRecordRaw[] = [
     meta: {
       isHide: true
     },
-    children: [{ path: '/redirect/:path(.*)', component: () => import('@/views/redirect/index.vue') }]
+    children: [
+      { path: '/redirect/:path(.*)', component: () => import('@/views/redirect/index.vue') }
+    ]
   },
   {
     path: '/',
@@ -83,32 +85,32 @@ export const constantRoutes: RouteRecordRaw[] = [
     children: [],
     meta: { isHide: true }
   }
-]
+];
 
 const router = createRouter({
   history: createWebHistory(),
   routes: constantRoutes
-})
+});
 
 router.beforeEach((to, _from, next) => {
-  const userStore = useUserStore()
-  const token = userStore.token
+  const userStore = useUserStore();
+  const token = userStore.token;
 
   if ((token ?? '') === '') {
     // 白名单
     if (isWhiteList(to)) {
-      next()
+      next();
     } else {
       // 否则进入登陆
-      next({ path: '/login' })
+      next({ path: '/login' });
     }
-    return
+    return;
   } else {
     // 是否获取用户信息
-    userStore.getInfo()
-    next()
-    return
+    userStore.getInfo();
+    next();
+    return;
   }
-})
+});
 
-export default router
+export default router;

@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-import SidebarItem from './SidebarItem.vue'
-const router = useRouter()
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+import SidebarItem from './SidebarItem.vue';
+const router = useRouter();
 
 const routes = computed(() => {
-  return router.options.routes
-})
+  return router.options.routes;
+});
 const showMenu = computed(() => {
-  return routes.value.filter((item) => !item.meta?.isHide && item.name !== '主页')
-})
+  return routes.value.filter((item) => !item.meta?.isHide && item.name !== '主页');
+});
 </script>
 <template>
   <div class="left-side">
@@ -19,21 +19,14 @@ const showMenu = computed(() => {
       </div>
     </div>
     <el-menu>
-      <el-sub-menu
-        v-for="item in showMenu"
-        :key="item.path"
-        :index="item.path"
-      >
+      <el-sub-menu v-for="item in showMenu" :key="item.path" :index="item.path">
         <template #title>
           <div class="svg-title">
             <svg-icon :name="item.meta?.icon ?? ''" />
             {{ item.name }}
           </div>
         </template>
-        <sidebar-item
-          :item="item"
-          :base-path="item.path"
-        />
+        <sidebar-item :item="item" :base-path="item.path" />
       </el-sub-menu>
     </el-menu>
   </div>

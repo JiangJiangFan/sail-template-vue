@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import type { FormConfigType, ResultType } from '../types/index.ts'
+import type { FormConfigType, ResultType } from '../types/index.ts';
 
 // const modelValue = defineModel()
 
 interface Props {
-  formData: string | number | undefined
-  formItem: FormConfigType
+  formData: string | number | undefined;
+  formItem: FormConfigType;
 }
-const emit = defineEmits(['change', 'visible-change', 'input'])
+const emit = defineEmits(['change', 'visible-change', 'input']);
 
-const props = defineProps<Props>()
+const props = defineProps<Props>();
 
 function handleChange(item: FormConfigType, e: ResultType) {
-  emit('change', { item: item, e: e })
+  emit('change', { item: item, e: e });
 }
 function handleVisible(item: FormConfigType, e: ResultType) {
-  emit('visible-change', { item: item, e: e })
+  emit('visible-change', { item: item, e: e });
 }
 function handleInput(item: FormConfigType, e: ResultType) {
-  emit('input', { item: item, e: e })
+  emit('input', { item: item, e: e });
 }
 </script>
 <template>

@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { RouteRecordRaw } from 'vue-router'
-import { useRouter } from 'vue-router'
-const router = useRouter()
+import { RouteRecordRaw } from 'vue-router';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 interface Props {
-  item: RouteRecordRaw
-  basePath?: string
+  item: RouteRecordRaw;
+  basePath?: string;
 }
 const props = withDefaults(defineProps<Props>(), {
   basePath: ''
-})
+});
 // const hideMenu = computed(() => {})
 function toFormList(item: string, event: any) {
-  let temp = event.target.dataset.router
-  router.push({ path: `${item}/${temp}` })
+  let temp = event.target.dataset.router;
+  router.push({ path: `${item}/${temp}` });
 }
 // function updateHideMenu() {}
 </script>

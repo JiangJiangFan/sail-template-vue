@@ -3,11 +3,16 @@ export function resultSuccess<T = any>(result: T, { message = 'ok' } = {}) {
     code: 200,
     data: result,
     message
-  }
+  };
 }
 
-export function resultPageSuccess<T = any>(page: number, pageSize: number, list: T[], { message = 'ok' } = {}) {
-  const pageData = pagination(page, pageSize, list)
+export function resultPageSuccess<T = any>(
+  page: number,
+  pageSize: number,
+  list: T[],
+  { message = 'ok' } = {}
+) {
+  const pageData = pagination(page, pageSize, list);
 
   return {
     ...resultSuccess({
@@ -15,7 +20,7 @@ export function resultPageSuccess<T = any>(page: number, pageSize: number, list:
       total: list.length
     }),
     message
-  }
+  };
 }
 
 export function resultError(message = 'Request failed', { code = -1, result = null } = {}) {
@@ -23,21 +28,21 @@ export function resultError(message = 'Request failed', { code = -1, result = nu
     code,
     data: result,
     message
-  }
+  };
 }
 
 export function pagination<T = any>(pageNo: number, pageSize: number, array: T[]): T[] {
-  const offset = (pageNo - 1) * Number(pageSize)
+  const offset = (pageNo - 1) * Number(pageSize);
   const ret =
     offset + Number(pageSize) >= array.length
       ? array.slice(offset, array.length)
-      : array.slice(offset, offset + Number(pageSize))
-  return ret
+      : array.slice(offset, offset + Number(pageSize));
+  return ret;
 }
 
 export interface requestParams {
-  method: string
-  body: any
-  headers?: { authorization?: string }
-  query: any
+  method: string;
+  body: any;
+  headers?: { authorization?: string };
+  query: any;
 }

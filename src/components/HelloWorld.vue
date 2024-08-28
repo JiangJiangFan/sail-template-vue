@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { getUsers } from '@/apis/user'
+import { ref, onMounted } from 'vue';
+import { getUsers } from '@/apis/user';
 
-defineProps<{ msg: string }>()
-const data = ref()
+defineProps<{ msg: string }>();
+const data = ref();
 const handleGetUsers = () => {
   getUsers().then((res) => {
-    data.value = res.data
-  })
-}
+    data.value = res.data;
+  });
+};
 onMounted(() => {
-  handleGetUsers()
-})
+  handleGetUsers();
+});
 </script>
 
 <template>

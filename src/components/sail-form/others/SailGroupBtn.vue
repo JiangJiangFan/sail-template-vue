@@ -1,12 +1,7 @@
 <script setup lang="ts"></script>
 <template>
   <div class="sail-form-btns">
-    <el-button
-      class="sail-btn-success"
-      @click="$emit('submitClick')"
-    >
-      提交
-    </el-button>
+    <el-button class="sail-btn-success" @click="$emit('submitClick')"> 提交 </el-button>
     <el-button>取消</el-button>
     <el-button><slot /></el-button>
   </div>

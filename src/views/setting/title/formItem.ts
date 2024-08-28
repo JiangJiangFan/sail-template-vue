@@ -1,4 +1,4 @@
-import { FormConfigType } from '@/components/sail-form/types'
+import { FormConfigType } from '@/components/sail-form/types';
 
 export const formItem: FormConfigType[] = [
   {
@@ -32,4 +32,4 @@ export const formItem: FormConfigType[] = [
     prop: 'product',
     type: 3
   }
-]
+];

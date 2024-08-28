@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { FormConfigType } from './types/index.ts'
-import SailFormItem from './others/SailFormItem.vue'
-import SailGroupBtn from './others/SailGroupBtn.vue'
-import { FormInstance } from 'element-plus'
+import { ref } from 'vue';
+import type { FormConfigType } from './types/index.ts';
+import SailFormItem from './others/SailFormItem.vue';
+import SailGroupBtn from './others/SailGroupBtn.vue';
+import { FormInstance } from 'element-plus';
 
 const props = defineProps({
   // 表单标题
@@ -46,23 +46,23 @@ const props = defineProps({
     type: Boolean,
     default: false
   }
-})
-const formRef = ref<FormInstance>()
-const emit = defineEmits(['submit'])
-const initData = ref(props.formData)
+});
+const formRef = ref<FormInstance>();
+const emit = defineEmits(['submit']);
+const initData = ref(props.formData);
 
 // 校验表单
 const submit = async (cb: FormInstance | undefined) => {
-  if (!cb) return
+  if (!cb) return;
   await cb.validate((valid, fields) => {
     if (valid) {
       // 通过表单验证
-      emit('submit')
+      emit('submit');
     } else {
-      console.log('error submit', fields)
+      console.log('error submit', fields);
     }
-  })
-}
+  });
+};
 </script>
 
 <template>

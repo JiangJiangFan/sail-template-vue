@@ -1,14 +1,14 @@
 /// <reference types="vite/client" />
 
-import 'vue-router'
+import 'vue-router';
 
 declare module 'vue-router' {
   interface RouteMeta {
-    layout?: string
-    isHide?: boolean
-    icon?: string
+    layout?: string;
+    isHide?: boolean;
+    icon?: string;
   }
   interface _RouteRecordBase {
-    isHide?: boolean
+    isHide?: boolean;
   }
 }

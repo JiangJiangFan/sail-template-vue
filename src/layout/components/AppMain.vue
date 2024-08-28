@@ -3,14 +3,8 @@
     <div class="main-header"></div>
     <div class="content-wrapper">
       <router-view v-slot="{ Component, route }">
-        <transition
-          name="fade-transform"
-          mode="out-in"
-        >
-          <component
-            :is="Component"
-            :key="route.path"
-          />
+        <transition name="fade-transform" mode="out-in">
+          <component :is="Component" :key="route.path" />
         </transition>
       </router-view>
     </div>

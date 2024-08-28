@@ -1,18 +1,15 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps } from 'vue';
 
 defineProps({
   isShow: {
     type: Boolean,
     default: false
   }
-})
+});
 </script>
 <template>
-  <div
-    class="sail-loading"
-    v-if="isShow"
-  >
+  <div class="sail-loading" v-if="isShow">
     <svg-icon name="loading" />
   </div>
 </template>

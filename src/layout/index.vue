@@ -12,7 +12,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { AppMain, Navbar, Sidebar } from './components'
+import { AppMain, Navbar, Sidebar } from './components';
 </script>
 <style lang="scss" scoped>
 .el-aside {
