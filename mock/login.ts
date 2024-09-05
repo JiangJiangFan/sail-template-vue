@@ -6,7 +6,7 @@ export default [
     response: (res: requestParams) => {
       const { username, password } = res.body;
       if (username === 'Jiang' && password === '123456') {
-        return resultSuccess('jhgfaasdfgrqawgfvADbgzhbdfaf');
+        return resultSuccess({ token: 'jhgfaasdfgrqawgfvADbgzhbdfaf' });
       } else {
         return resultError('账户或密码错误');
       }
@@ -16,9 +16,9 @@ export default [
     url: '/apis/info',
     method: 'get',
     response: (res: requestParams) => {
-      const params = res.query;
+      const params = res.headers;
 
-      if (params !== '') {
+      if (params?.authorization !== '') {
         return resultSuccess({ username: 'Jiang' });
       } else {
         return resultError('token 已过期', { code: 10004 });

@@ -1,5 +1,5 @@
-import http from '@/utils/request';
+import { get } from '@/utils/http';
 
 export const getUsers = (params?: object) => {
-  return http.get('/users', params);
+  return get('/users', params);
 };

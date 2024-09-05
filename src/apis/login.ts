@@ -1,18 +1,15 @@
-import http from '@/utils/request';
+import { post, get } from '@/utils/http';
+import { LoginParams } from './types/params';
+import { RLogin, RInfo } from './types/response';
 
-export type LoginRequestData = {
-  username: string;
-  password: string; // 密码
-};
-
-export function loginApi(data: any) {
-  return http.post('/login', data);
+export function loginApi(data: LoginParams) {
+  return post<RLogin>('/login', data);
 }
 
-export function getUserInfo(token: string) {
-  return http.get('/info', { params: token });
+export function getUserInfo() {
+  return get<RInfo>('/info');
 }
 
 export function logoutApi() {
-  return http.post('/logout');
+  return post('/logout');
 }

@@ -92,10 +92,12 @@ const router = createRouter({
   routes: constantRoutes
 });
 
-router.beforeEach((to, _from, next) => {
+router.beforeEach(async (to, _from, next) => {
   const userStore = useUserStore();
   const token = userStore.token;
+  const name = userStore.username;
 
+  // token 不存在
   if ((token ?? '') === '') {
     // 白名单
     if (isWhiteList(to)) {
@@ -106,9 +108,18 @@ router.beforeEach((to, _from, next) => {
     }
     return;
   } else {
-    // 是否获取用户信息
-    userStore.getInfo();
-    next();
+    // 如果用户信息不存在
+    if (!name) {
+      try {
+        await userStore.getInfo();
+      } catch (error) {
+        userStore.token = '';
+        next({ path: '/login' });
+        return Promise.reject(error);
+      }
+    } else {
+      next();
+    }
     return;
   }
 });

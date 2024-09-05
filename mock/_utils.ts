@@ -1,8 +1,8 @@
-export function resultSuccess<T = any>(result: T, { message = 'ok' } = {}) {
+export function resultSuccess<T = any>(result: T, { msg = 'ok' } = {}) {
   return {
     code: 200,
     data: result,
-    message
+    msg
   };
 }
 

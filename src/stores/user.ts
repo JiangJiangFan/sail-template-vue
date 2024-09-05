@@ -1,4 +1,6 @@
-import { loginApi, getUserInfo, type LoginRequestData } from '@/apis/login';
+import { loginApi, getUserInfo } from '@/apis/login';
+import type { LoginParams } from '@/apis/types/params';
+
 import { defineStore } from 'pinia';
 
 export const useUserStore = defineStore('user', {
@@ -8,15 +10,15 @@ export const useUserStore = defineStore('user', {
   }),
   actions: {
     // 登录
-    async login({ username, password }: LoginRequestData) {
+    async login({ username, password }: LoginParams) {
       const { data, code } = await loginApi({ username, password });
       if (code === 200) {
-        this.token = data;
+        this.token = data.token;
       }
     },
     // 获取用户详情
     async getInfo() {
-      const { data } = await getUserInfo(this.token);
+      const { data } = await getUserInfo();
       this.username = data.username;
     },
     // 登出

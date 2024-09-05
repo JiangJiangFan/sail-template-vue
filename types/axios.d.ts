@@ -1,10 +1,10 @@
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import type { AxiosInstance, AxiosRequestConfig } from 'axios';
 
-declare module 'axios' {
-  interface AxiosResponse<T = any> {
-    code: number;
-    data: T;
-    message: string;
-  }
-  export function create(config?: AxiosRequestConfig): AxiosInstance;
-}
+// declare module 'axios' {
+//   interface ApiResponseData<T> {
+//     code: number;
+//     data: T;
+//     message: string;
+//   }
+//   export function create(config?: AxiosRequestConfig): AxiosInstance;
+// }

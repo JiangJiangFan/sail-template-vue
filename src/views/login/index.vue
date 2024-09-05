@@ -9,7 +9,7 @@ const form = ref({
   password: ''
 });
 
-const onSubmit = () => {
+const onSubmit = async () => {
   userStore.login(form.value).then(() => {
     // 登录成功后跳转到首页
     router.push({ path: '/' });
