@@ -104,6 +104,7 @@ router.beforeEach(async (to, _from, next) => {
       next();
     } else {
       // 否则进入登陆
+      userStore.token = '';
       next({ path: '/login' });
     }
     return;

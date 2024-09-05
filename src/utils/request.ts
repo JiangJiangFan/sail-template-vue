@@ -30,7 +30,6 @@ instance.interceptors.request.use(
   (config) => {
     // 拦截请求配置加 token
     const userState = localStorage.getItem('user');
-    console.log('token:', userState);
     const user = JSON.parse(userState ?? '');
     if (user.token) {
       config.headers!.Authorization = user.token;
@@ -58,7 +57,7 @@ instance.interceptors.response.use(
       case 10004:
         return logout();
       default:
-        ElMessage.error(apiData.message || 'Error');
+        ElMessage.error({ message: apiData.message || 'Error', duration: 0 });
         return Promise.reject(apiData.message);
     }
   },
