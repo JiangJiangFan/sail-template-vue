@@ -9,12 +9,10 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   basePath: ''
 });
-// const hideMenu = computed(() => {})
 function toFormList(item: string, event: any) {
   let temp = event.target.dataset.router;
   router.push({ path: `${item}/${temp}` });
 }
-// function updateHideMenu() {}
 </script>
 <template>
   <div

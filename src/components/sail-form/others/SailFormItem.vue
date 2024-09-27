@@ -87,10 +87,25 @@ function handleInput(item: FormConfigType, e: ResultType) {
     <el-radio
       v-for="(c, k) in props.formItem.rad!.options"
       :key="k"
-      :label="c.value"
+      :value="c.value"
       :disabled="c.disabled"
     >
       {{ c.label }}
     </el-radio>
   </el-radio-group>
+  <!-- <el-checkbox-group
+    v-else-if="props.formItem.type === 7"
+    v-bind="$attrs"
+    :disabled="props.formItem.disabled"
+    @change="(e: any) => handleChange(props.formItem, e)"
+  >
+    <el-checkbox
+      v-for="(c, k) in props.formItem.sel!.options"
+      :key="k"
+      :label="c.label"
+      :value="c.value"
+    >
+      {{ c.label }}
+    </el-checkbox>
+  </el-checkbox-group> -->
 </template>

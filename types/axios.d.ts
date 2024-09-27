@@ -4,7 +4,7 @@ import type { AxiosInstance, AxiosRequestConfig } from 'axios';
 //   interface ApiResponseData<T> {
 //     code: number;
 //     data: T;
-//     message: string;
+//     msg: string;
 //   }
 //   export function create(config?: AxiosRequestConfig): AxiosInstance;
 // }

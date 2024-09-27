@@ -2,6 +2,7 @@ import type { AxiosInstance } from 'axios';
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import { useUserStore } from '@/stores/user';
+import { Meta } from '@/apis/types/meta';
 
 /**
  * 退出登陆并强制刷新页面
@@ -18,10 +19,12 @@ export interface ApiResponseData<T> {
   code: number;
   data: T;
   message: string;
+  meta: Meta;
 }
 
 const instance: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_APP_API as string,
+  // baseURL: 'apis',
   timeout: 5000
 });
 
@@ -30,7 +33,7 @@ instance.interceptors.request.use(
   (config) => {
     // 拦截请求配置加 token
     const userState = localStorage.getItem('user');
-    const user = JSON.parse(userState ?? '');
+    const user = userState !== null ? JSON.parse(userState ?? '') : '';
     if (user.token) {
       config.headers!.Authorization = user.token;
     }
@@ -57,13 +60,16 @@ instance.interceptors.response.use(
       case 10004:
         return logout();
       default:
-        ElMessage.error({ message: apiData.message || 'Error', duration: 0 });
-        return Promise.reject(apiData.message);
+        ElMessage.error({ message: apiData.msg || 'Error' });
+        return Promise.reject(apiData.msg);
     }
   },
   (err) => {
+    console.log(JSON.stringify(err));
+
     // 这里用来处理http常见错误，进行全局提示
-    let status = err.response.status;
+    const { status } = err.response;
+    console.log(status);
     switch (status) {
       case 400:
         err.message = '请求错误(400)';

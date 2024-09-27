@@ -59,3 +59,10 @@ type DateType = {
   // 返回日期格式
   valueFormat?: string;
 };
+
+// 下拉组件相关
+// type CheType = {
+//   options: Array<Record<string, string | number>>;
+//   // 自定义options变量
+//   field?: Options;
+// };

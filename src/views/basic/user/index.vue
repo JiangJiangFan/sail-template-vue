@@ -109,6 +109,7 @@ const handleDelUser = (val: number) => {
   console.log(val);
 };
 </script>
+
 <template>
   <div>
     <div class="tools">
@@ -152,6 +153,7 @@ const handleDelUser = (val: number) => {
     />
   </div>
 </template>
+
 <style lang="scss" scoped>
 .tools {
   margin-bottom: 10px;

@@ -22,7 +22,7 @@
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  height: 58px;
+  height: 48px;
   width: 100%;
   border-bottom: 1px solid var(--border-color);
   padding: 0 30px;
@@ -103,7 +103,7 @@
 .svg-icon {
   width: 20px;
   height: 20px;
-  color: #f9fafb;
+  color: var(--header-icon-color);
   flex-shrink: 0;
 }
 </style>

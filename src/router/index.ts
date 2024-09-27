@@ -18,7 +18,7 @@ export const constantRoutes: RouteRecordRaw[] = [
     path: '/',
     component: Layouts,
     name: '主页',
-    redirect: '/home',
+    redirect: 'home',
     children: [
       {
         path: 'home',
@@ -39,11 +39,30 @@ export const constantRoutes: RouteRecordRaw[] = [
     }
   },
   {
+    path: '/basic',
+    component: Layouts,
+    redirect: 'basic/user',
+    name: '基础数据',
+    meta: { title: '基础数据', icon: 'menu' },
+    children: [
+      {
+        path: 'user',
+        name: '用户',
+        component: () => import('@/views/basic/user/index.vue')
+      }
+      // {
+      //   path: 'tracking',
+      //   name: '单号',
+      //   component: () => import('@/views/setting/tracking/index.vue')
+      // }
+    ]
+  },
+  {
     path: '/setting',
     component: Layouts,
     redirect: '/setting/title',
-    name: '基础数据',
-    meta: { title: '基础数据', icon: 'menu' },
+    name: '系统设置',
+    meta: { title: '系统设置', icon: 'setting' },
     children: [
       {
         path: 'title',
@@ -55,6 +74,25 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: '单号',
         component: () => import('@/views/setting/tracking/index.vue')
       }
+    ]
+  },
+  {
+    path: '/editor',
+    component: Layouts,
+    redirect: '/editor/title',
+    name: '编辑器',
+    meta: { title: '编辑器', icon: 'doc' },
+    children: [
+      {
+        path: 'word',
+        name: '富文本编辑器',
+        component: () => import('@/views/editor/index.vue')
+      }
+      // {
+      //   path: 'tracking',
+      //   name: 'MD 编辑器',
+      //   component: () => import('@/views/setting/tracking/index.vue')
+      // }
     ]
   },
   {
@@ -95,8 +133,6 @@ const router = createRouter({
 router.beforeEach(async (to, _from, next) => {
   const userStore = useUserStore();
   const token = userStore.token;
-  const name = userStore.username;
-
   // token 不存在
   if ((token ?? '') === '') {
     // 白名单
@@ -109,19 +145,7 @@ router.beforeEach(async (to, _from, next) => {
     }
     return;
   } else {
-    // 如果用户信息不存在
-    if (!name) {
-      try {
-        await userStore.getInfo();
-      } catch (error) {
-        userStore.token = '';
-        next({ path: '/login' });
-        return Promise.reject(error);
-      }
-    } else {
-      next();
-    }
-    return;
+    next();
   }
 });
 

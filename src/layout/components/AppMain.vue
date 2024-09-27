@@ -24,19 +24,19 @@
   .main-header {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid var(--border-color);
-    margin-right: 20px;
-    height: 36px;
+    padding: 0 20px;
+    height: 24px;
     flex-shrink: 0;
+    background-color: var(--theme-header-color);
   }
   .content-wrapper {
     display: flex;
     flex-direction: column;
-    color: var(--theme-color);
+    // color:
     padding: 20px 40px;
     height: 100%;
     overflow: auto;
-    margin-right: 20px;
+    // margin: 10px 20px;
     @media screen and (max-width: 510px) {
       padding: 20px;
     }

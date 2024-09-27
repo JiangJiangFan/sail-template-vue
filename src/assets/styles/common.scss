@@ -26,41 +26,6 @@ $data-unit-right: 6px;
     }
   }
 }
-// 日期
-.el-picker-panel {
-  background: #262626 !important;
-  box-shadow: 0px 9px 28px 1px rgba(0, 0, 0, 0.2);
-
-  //选中项日期高亮
-  .el-date-table {
-    .in-range div {
-      background-color: #525252 !important;
-    }
-
-    .start-date span,
-    .end-date span {
-      background-color: #2deb79 !important;
-      color: #ffffff !important;
-
-      &:hover {
-        color: #000000 !important;
-      }
-    }
-  }
-}
-
-// 日期范围
-.el-range-editor .el-range-input {
-  background: none !important;
-}
-
-.el-date-range-picker {
-  .el-date-table td.next-month,
-  .el-date-table td.prev-month {
-    opacity: 0 !important;
-    pointer-events: none;
-  }
-}
 
 // 下拉
 .el-select-dropdown,
@@ -69,27 +34,13 @@ $data-unit-right: 6px;
   border: none !important;
   // 无数据时下拉框样式
   .el-select-dropdown__empty {
-    background: #3e3e3e;
     border-radius: 6px;
   }
 }
 
-.el-select {
-  &__wrapper {
-    background-color: #3d3f43 !important;
-    box-shadow: 0 0 0 0px #2deb79 inset !important;
-    border: 1px solid #3d3f43 !important;
-    &:focus,
-    &:hover {
-      border: 1px solid #2deb79 !important;
-    }
-  }
-}
 // 下拉框
 .el-select-dropdown {
-  background-color: #3d3f43;
   .el-scrollbar {
-    background: #3d3f43;
     border-radius: 12px 12px 12px 12px !important;
     .el-select-dropdown__wrap,
     .el-scrollbar__wrap {
@@ -97,9 +48,7 @@ $data-unit-right: 6px;
     }
 
     .el-select-dropdown__item {
-      background-color: transparent;
       font-size: 16px;
-      color: #ffffff;
       padding: 0 15px;
       margin: 1px 0;
       display: flex;
@@ -107,9 +56,7 @@ $data-unit-right: 6px;
       flex-direction: row;
 
       &.is-selected {
-        color: #ffffff;
         font-weight: normal;
-        background-color: rgba(27, 206, 98, 0.15);
         margin: 1px 6px;
         border-radius: 4px;
         padding: 0 9px;
@@ -117,10 +64,8 @@ $data-unit-right: 6px;
 
       &:focus,
       &:hover {
-        background-color: rgba(27, 206, 98, 0.15) !important;
         margin: 1px 6px;
         border-radius: 6px;
-        color: #ffffff;
         padding: 0 9px;
       }
     }
@@ -129,17 +74,14 @@ $data-unit-right: 6px;
 
 // 输入框——自动弹出选择
 .el-autocomplete-suggestion {
-  color: #ffffff;
   opacity: 1;
   .el-scrollbar {
-    background: #3e3e3e;
     border-radius: 6px !important;
 
     .el-autocomplete-suggestion__wrap {
       margin-right: 0px;
 
       .el-autocomplete-suggestion__list {
-        background-color: transparent;
         padding: 0 9px;
 
         > li {
@@ -155,9 +97,7 @@ $data-unit-right: 6px;
 
           &.house,
           &:hover {
-            background-color: #525252;
             border-radius: 4px;
-            color: #2deb79;
           }
         }
       }
@@ -166,21 +106,7 @@ $data-unit-right: 6px;
 }
 
 .el-input {
-  background-color: #3d3f43;
   border-radius: 6px 6px 6px 6px;
-
-  &__wrapper,
-  &__inner {
-    background-color: transparent !important;
-  }
-  &__wrapper {
-    box-shadow: 0 0 0 0px #2deb79 inset !important;
-    border: 1px solid #3d3f43 !important;
-    &:focus,
-    &:hover {
-      border: 1px solid #2deb79 !important;
-    }
-  }
   &__inner {
     color: #ffffff;
     border-width: 0;
@@ -216,4 +142,33 @@ $data-unit-right: 6px;
 
 .el-message {
   position: absolute;
+}
+
+/**
+*滚动条样式
+*/
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.5) !important;
+  transition: color 0.2s ease;
+  -webkit-transition: color 0.2s ease;
+  -moz-transition: color 0.2s ease;
+  -ms-transition: color 0.2s ease;
+  -o-transition: color 0.2s ease;
+  &:hover {
+    background: #dad9d9 !important;
+  }
 }

@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useUserStore } from '@/stores/user';
-import { useRouter } from 'vue-router';
-const router = useRouter();
 const userStore = useUserStore();
 const form = ref({
   username: '',
@@ -10,10 +8,7 @@ const form = ref({
 });
 
 const onSubmit = async () => {
-  userStore.login(form.value).then(() => {
-    // 登录成功后跳转到首页
-    router.push({ path: '/' });
-  });
+  userStore.login(form.value);
 };
 </script>
 <template>

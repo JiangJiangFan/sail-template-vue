@@ -1,25 +1,51 @@
 <script setup lang="ts">
 import SailUserTree from './SailUserTree.vue';
-import { ResultType } from '../types';
+import { ResultType, ChooseType } from '../types';
+import { useAttrs, ref, computed } from 'vue';
 
-const checkList: ResultType[] = [];
-const resetChecked = () => {
-  console.log('清空');
+const props = defineProps({
+  visible: {
+    type: Boolean,
+    require: true
+  }
+});
+
+const emit = defineEmits(['update:visible']);
+const attrs = useAttrs();
+const treeRef = ref();
+
+const title = attrs.title as string;
+const current = attrs.current as ChooseType;
+
+const checkList = computed(() => {
+  return current.user;
+});
+
+const handleReset = () => {
+  treeRef.value.handleReset();
 };
 const handleDel = (val: ResultType) => {
-  console.log('删除', val);
+  treeRef.value.handleDel(val);
 };
 const handleClose = () => {
-  console.log('取消');
+  treeRef.value.handleReset();
+  emit('update:visible', false);
 };
 const handleSubmit = () => {
-  console.log('取消');
+  treeRef.value.handleSubmit();
+  emit('update:visible', false);
 };
 </script>
 
 <template>
-  <div>
-    <sail-user-tree v-bind="$attrs"></sail-user-tree>
+  <el-dialog
+    :title="title"
+    :visible.sync="props.visible"
+    :before-close="handleClose"
+    width="40%"
+    append-to-body
+  >
+    <sail-user-tree v-bind="$attrs" ref="treeRef"></sail-user-tree>
     <el-divider direction="vertical"></el-divider>
     <div class="selected-box">
       <div class="selected-box__head">
@@ -27,7 +53,7 @@ const handleSubmit = () => {
           已选择（<span style="color: #2deb79"> {{ checkList.length }}</span
           >）
         </div>
-        <el-button type="text" @click="resetChecked">清空</el-button>
+        <el-button type="text" @click="handleReset">清空</el-button>
       </div>
       <div class="selected-box__body">
         <div v-for="item in checkList" :key="item.id">
@@ -39,11 +65,31 @@ const handleSubmit = () => {
       <el-button @click="handleClose" style="border-color: #656565">取 消</el-button>
       <el-button type="primary" @click="handleSubmit">确 定</el-button>
     </div>
-  </div>
+  </el-dialog>
 </template>
 
 <style lang="scss" scoped>
+::v-deep(.el-dialog) {
+  width: 654px;
+  height: 520px;
+  background: #262626;
+  box-shadow: 0px 10px 30px 1px rgba(0, 0, 0, 0.82);
+  border-radius: 12px 12px 12px 12px;
+  opacity: 1;
+  z-index: 9999;
+  .el-dialog__header {
+    .el-dialog__title {
+      display: flex;
+      font-weight: bold;
+      margin-left: 14px;
+    }
+  }
+}
 .sail-user_tree {
+  float: left;
+  width: 35%;
+}
+.sail-dept_tree {
   float: left;
   width: 35%;
 }

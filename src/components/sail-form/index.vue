@@ -52,17 +52,21 @@ const emit = defineEmits(['submit']);
 const initData = ref(props.formData);
 
 // 校验表单
-const submit = async (cb: FormInstance | undefined) => {
-  if (!cb) return;
-  await cb.validate((valid, fields) => {
+const handleSubmit = async () => {
+  if (!formRef.value) return;
+  await formRef.value.validate((valid, fields) => {
     if (valid) {
       // 通过表单验证
-      emit('submit');
+      emit('submit', initData.value);
     } else {
       console.log('error submit', fields);
     }
   });
 };
+const handleReset = () => {
+  initData.value = {};
+};
+defineExpose({ handleSubmit, handleReset });
 </script>
 
 <template>
@@ -99,14 +103,14 @@ const submit = async (cb: FormInstance | undefined) => {
     </el-form-item>
     <!-- 表单操作按钮 -->
     <div v-if="props.showFooter">
-      <sail-group-btn @submitClick="submit(formRef)">重置</sail-group-btn>
+      <sail-group-btn @submitClick="handleSubmit()">重置</sail-group-btn>
     </div>
   </el-form>
 </template>
 <style scoped lang="scss">
 :deep(.el-form-item) {
   .el-form-item__label {
-    width: 60px;
+    width: 80px;
     justify-content: flex-start;
   }
 }

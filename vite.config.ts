@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
@@ -9,42 +9,49 @@ import { resolve } from 'path';
 import { viteMockServe } from 'vite-plugin-mock';
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    vue(),
-    AutoImport({
-      resolvers: [ElementPlusResolver()]
-    }),
-    Components({
-      resolvers: [ElementPlusResolver()]
-    }),
-    // SvgLoader({ defaultImport: 'url' }),
-    createSvgIconsPlugin({
-      iconDirs: [resolve(process.cwd(), 'src/assets/svg')],
-      symbolId: 'icon-[dir]-[name]'
-    }),
-    viteMockServe({
-      // 模拟数据目录
-      mockPath: './mock',
-      // prodEnabled: true
-      enable: false
-    })
-  ],
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, './src')
-    }
-  },
-  server: {
-    host: true,
-    port: 9527,
-    proxy: {
-      '/apis': {
-        target: 'http://localhost:3000',
-        changeOrigin: true,
-        ws: true,
-        rewrite: (path) => path.replace(/^\/apis/, '')
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode as string, process.cwd(), '');
+  return {
+    plugins: [
+      vue(),
+      AutoImport({
+        resolvers: [ElementPlusResolver()]
+      }),
+      Components({
+        resolvers: [ElementPlusResolver()]
+      }),
+      // SvgLoader({ defaultImport: 'url' }),
+      createSvgIconsPlugin({
+        iconDirs: [resolve(process.cwd(), 'src/assets/svg')],
+        symbolId: 'icon-[dir]-[name]'
+      }),
+      viteMockServe({
+        // 模拟数据目录
+        mockPath: './mock',
+        // prodEnabled: true
+        enable: false
+      })
+    ],
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, './src')
+      }
+    },
+    server: {
+      host: false,
+      port: 9527,
+      proxy: {
+        '/apis': {
+          target: env.VITE_APP_HOST,
+          changeOrigin: true,
+          ws: true,
+          rewrite: (path) => {
+            console.log(path);
+            return path.replace(/^\/apis/, '');
+          },
+          secure: true
+        }
       }
     }
-  }
+  };
 });

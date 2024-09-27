@@ -15,7 +15,9 @@ const showMenu = computed(() => {
   <div class="left-side">
     <div class="side-wrapper">
       <div class="side-title">
-        <router-link to="/home">主页</router-link>
+        <router-link to="/home"
+          ><div class="svg-title"><svg-icon name="home" />主页</div></router-link
+        >
       </div>
     </div>
     <el-menu>
@@ -39,12 +41,22 @@ const showMenu = computed(() => {
   height: 100%;
   overflow: auto;
   flex-shrink: 0;
-  // @media screen and (max-width: 945px) {
-  //   display: none;
-  // }
+}
+.el-menu {
+  :deep(.el-sub-menu__title) {
+    height: 36px;
+    line-height: 36px;
+  }
 }
 .side-title {
   color: var(--inactive-color);
+  font-size: var(--el-menu-item-font-size);
+  height: 36px;
+  line-height: 36px;
+  svg {
+    width: 16px;
+    margin-right: 8px;
+  }
 }
 .side-wrapper + .side-wrapper {
   margin-top: 20px;

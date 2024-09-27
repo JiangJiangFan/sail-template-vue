@@ -1,7 +1,7 @@
 import { loginApi, getUserInfo } from '@/apis/login';
 import type { LoginParams } from '@/apis/types/params';
-
 import { defineStore } from 'pinia';
+import router from '../router';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -13,7 +13,8 @@ export const useUserStore = defineStore('user', {
     async login({ username, password }: LoginParams) {
       const { data, code } = await loginApi({ username, password });
       if (code === 200) {
-        this.token = data.token;
+        this.token = data;
+        router.push('home');
       }
     },
     // 获取用户详情
@@ -24,6 +25,7 @@ export const useUserStore = defineStore('user', {
     // 登出
     logout() {
       this.token = '';
+      router.push('login');
     },
     // 重置
     reset() {
