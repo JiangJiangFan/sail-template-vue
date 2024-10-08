@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import SailForm from '@/components/sail-form/index.vue';
 import { formItem } from './formItem';
-import { getUsers } from '@/apis/user.ts';
+// import { getUsers } from '@/apis/user.ts';
 import { onBeforeMount } from 'vue';
 
 const formData = {
@@ -12,14 +12,14 @@ const submit = () => {
 };
 
 onBeforeMount(() => {
-  handleGetUser();
+  // handleGetUser();
 });
-const handleGetUser = async () => {
-  const { data, meta } = await getUsers();
+// const handleGetUser = async () => {
+//   const { data, meta } = await getUsers();
 
-  console.log(data);
-  console.log(meta);
-};
+//   console.log(data);
+//   console.log(meta);
+// };
 </script>
 <template>
   <el-card>

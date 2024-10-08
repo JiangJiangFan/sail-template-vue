@@ -1,5 +1,6 @@
 import type { AxiosInstance } from 'axios';
 import axios from 'axios';
+import qs from 'qs';
 import { ElMessage } from 'element-plus';
 import { useUserStore } from '@/stores/user';
 import { Meta } from '@/apis/types/meta';
@@ -23,9 +24,10 @@ export interface ApiResponseData<T> {
 }
 
 const instance: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_APP_API as string,
+  baseURL: import.meta.env.VITE_APP_HOST as string,
   // baseURL: 'apis',
-  timeout: 5000
+  timeout: 5000,
+  headers: { 'Content-Type': 'application/json;charset=UTF-8' }
 });
 
 // 请求拦截器
@@ -36,6 +38,14 @@ instance.interceptors.request.use(
     const user = userState !== null ? JSON.parse(userState ?? '') : '';
     if (user.token) {
       config.headers!.Authorization = user.token;
+    }
+    // 追加时间戳，防止get请求缓存
+    if (config.method?.toUpperCase() === 'GET') {
+      config.params = { ...config.params, t: new Date().getTime() };
+    }
+
+    if (Object.values(config.headers).includes('application/x-www-form-urlencoded')) {
+      config.data = qs.stringify(config.data);
     }
     return config;
   },

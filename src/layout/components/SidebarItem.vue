@@ -9,9 +9,8 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   basePath: ''
 });
-function toFormList(item: string, event: any) {
-  let temp = event.target.dataset.router;
-  router.push({ path: `${item}/${temp}` });
+function toFormList(path: string) {
+  router.push({ path: `${props.basePath}/${path}` });
 }
 </script>
 <template>
@@ -20,7 +19,7 @@ function toFormList(item: string, event: any) {
     v-for="child in props.item.children"
     :key="child.path"
     :data-router="child.path"
-    @click="toFormList(props.basePath, $event)"
+    @click="toFormList(child.path)"
   >
     {{ child.name }}
   </div>

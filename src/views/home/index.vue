@@ -1,184 +1,58 @@
 <script setup lang="ts">
 import type { RUser } from '@/apis/types/response';
-import SailDrawer from '@/components/sail-drawer/index.vue';
-
-import { getUsers, editUser } from '@/apis/user.ts';
-import { nextTick, onBeforeMount, onMounted, reactive, ref } from 'vue';
-import { formItem, editItem } from './formItem';
-import { FormRules } from 'element-plus';
+import { getUsers } from '@/apis/user.ts';
+import { onBeforeMount, onMounted, ref } from 'vue';
+import { useUserStore } from '@/stores/user';
 import { Meta } from '@/apis/types/meta';
 
-type ColunmsType = {
-  prop: string;
-  label: string;
-  slotName?: string;
-};
-const initData = ref<RUser[]>([]);
+const initData = ref<RUser>();
 const initMeta = ref<Meta>({});
-const columns: ColunmsType[] = [
-  {
-    prop: 'id',
-    label: 'ID'
-  },
-  {
-    prop: 'username',
-    label: '用户名'
-  },
-  {
-    prop: 'nickname',
-    label: '昵称'
-  },
-  {
-    prop: 'avator',
-    label: '头像'
-  },
-  {
-    prop: 'role_name',
-    label: '角色',
-    slotName: 'role'
-  },
-  {
-    prop: 'created_at',
-    label: '创建时间'
-  },
-  {
-    prop: 'updated_at',
-    label: '编辑时间'
-  }
-];
-
-const formData = ref({});
-const drawer = ref<InstanceType<typeof SailDrawer> | null>(null);
-const rules = reactive<FormRules>({
-  password: [
-    {
-      required: true,
-      message: '请输入密码',
-      trigger: 'blur'
-    }
-  ],
-  newPass: [
-    {
-      required: true,
-      message: '请输入密码',
-      trigger: 'blur'
-    }
-  ]
-});
-const header = ref('add');
 
 onBeforeMount(() => {
   initMethod();
 });
-onMounted(() => {
-  nextTick(() => {
-    // initMethod();
-  });
-});
+onMounted(() => {});
 
 const initMethod = () => {
   handleGetUser();
 };
 const handleGetUser = async () => {
-  const { data, meta } = await getUsers();
-  initData.value = data;
+  const userStore = useUserStore();
+  const user = userStore.username;
+  const { data, meta } = await getUsers({ value: user });
+  initData.value = data[0];
   initMeta.value = meta;
-  console.log(initMeta.value);
-};
-const handleEditUser = (val: RUser) => {
-  header.value = 'edit';
-  formData.value = { ...val };
-  drawer.value?.isOpen();
-};
-
-const handleAddUser = () => {
-  header.value = 'add';
-  formData.value = {};
-  drawer.value?.isOpen();
-};
-
-const handleSubmit = async (val: any) => {
-  console.log(val);
-  const { data } = await editUser(val);
-  console.log(data);
-  drawer.value?.isClose();
-  initMethod();
-};
-
-const handleDelUser = (val: number) => {
-  console.log(val);
 };
 </script>
 <template>
   <div>
-    <div class="tools">
-      <el-button type="primary" @click="handleAddUser">新增</el-button>
-    </div>
-    <el-card>
-      <el-table :data="initData" stripe height="60vh">
-        <el-table-column
-          v-for="item in columns"
-          :key="item.prop"
-          :prop="item.prop"
-          :label="item.label"
-        >
-          <template v-if="item?.slotName" #default="scope">
-            <div>{{ scope.row[item.prop] === 'admin' ? '管理员' : '普通用户' }}</div>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" fixed="right" min-width="120" class-name="operate">
-          <template #default="scope">
-            <div @click="handleEditUser(scope.row)">编辑</div>
-            <div type="danger" text @click="handleDelUser(scope.row.id)">删除</div>
-          </template>
-        </el-table-column>
-      </el-table>
-      <div class="sail-page-box">
-        <el-pagination
-          layout="prev, pager, next, total, jumper"
-          v-model:current-page="initMeta.current"
-          v-model:page-size="initMeta.size"
-          :total="initMeta?.total"
-        />
-      </div>
+    <el-card style="max-width: 265px">
+      <template #header>
+        <div class="card-header">
+          <el-avatar :size="50" :src="initData?.avator" fit="cover" />
+          <div class="card-header-title">
+            <div>{{ initData?.nickname }}</div>
+            <div>{{ initData?.role_name === 'admin' ? '管理员' : '普通' }}</div>
+          </div>
+        </div>
+      </template>
+      <div>创建时间：{{ initData?.created_at }}</div>
     </el-card>
-    <sail-drawer
-      ref="drawer"
-      :header="header"
-      :formData="formData"
-      :formItemConfig="header === 'add' ? formItem : editItem"
-      :formRules="rules"
-      @submit="handleSubmit"
-    />
   </div>
 </template>
 <style lang="scss" scoped>
-.tools {
-  margin-bottom: 10px;
-}
-.el-table {
-  :deep(.el-table__inner-wrapper) {
-    &::before {
-      height: 0px;
+.card-header {
+  display: flex;
+  &-title {
+    line-height: 25px;
+    margin-left: 10px;
+    > div:first-child {
+      font-size: 16px;
     }
-  }
-  :deep(.operate) {
-    .cell {
-      display: flex;
-      > div:first-child {
-        margin-right: 10px;
-        color: #409eff;
-      }
-      > div:last-child {
-        color: #f56c6c;
-      }
+    > div:last-child {
+      color: #c0c4cc;
+      font-size: 14px;
     }
-  }
-}
-.sail-page-box {
-  width: 100%;
-  .el-pagination {
-    justify-content: end;
   }
 }
 </style>

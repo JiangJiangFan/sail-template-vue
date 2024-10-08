@@ -11,4 +11,5 @@ export type RUser = {
   nickname: string;
   avator: string;
   role_id: string;
+  role_name?: string;
 };
