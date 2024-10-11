@@ -18,6 +18,7 @@ const initMeta = ref<Meta>({
   total: 0,
   size: 10
 });
+const selection = ref<number[]>();
 const columns: ColunmsType[] = [
   {
     prop: 'id',
@@ -102,22 +103,32 @@ const handleAddUser = () => {
 };
 
 const handleSubmit = async (val: any) => {
-  await editUser(val);
+  const { data } = await editUser(val);
+  console.log('data:', data);
+
   drawer.value?.isClose();
   initMethod();
 };
 
-const handleDelUser = (val: number) => {
+const handleDelUser = (val: any) => {
+  if (typeof val === 'number') {
+    val = [val];
+  }
+  console.log(typeof val);
   console.log(val);
 };
 
 const handleSize = (val: number) => {
   initMeta.value.size = val;
-  console.log('val', val);
 };
 
 const handleCurrent = (val: number) => {
   initMeta.value.current = val;
+};
+
+// 多选事件
+const handleSelectionChange = (val: RUser[]) => {
+  selection.value = val.map((item) => item.id);
 };
 </script>
 
@@ -125,9 +136,11 @@ const handleCurrent = (val: number) => {
   <div>
     <div class="tools">
       <el-button type="primary" @click="handleAddUser">新增</el-button>
+      <el-button type="danger" @click="handleDelUser(selection)">删除选中</el-button>
     </div>
     <el-card>
-      <el-table :data="initData" stripe height="60vh">
+      <el-table :data="initData" stripe height="60vh" @selection-change="handleSelectionChange">
+        <el-table-column type="selection" width="55" />
         <el-table-column
           v-for="item in columns"
           :key="item.prop"

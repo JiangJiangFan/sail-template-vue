@@ -3,6 +3,7 @@ import SailForm from '@/components/sail-form/index.vue';
 import { formItem } from './formItem';
 // import { getUsers } from '@/apis/user.ts';
 import { onBeforeMount } from 'vue';
+// import Quill from 'quill';
 
 const formData = {
   username: 'Jiang'
@@ -10,6 +11,9 @@ const formData = {
 const submit = () => {
   console.log(formData);
 };
+// const quill = new Quill('#quill', {
+//   theme: 'snow'
+// });
 
 onBeforeMount(() => {
   // handleGetUser();
@@ -34,3 +38,4 @@ onBeforeMount(() => {
     ></sail-form>
   </el-card>
 </template>
+<style lang="css" scoped></style>

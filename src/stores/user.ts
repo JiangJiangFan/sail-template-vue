@@ -17,8 +17,8 @@ export const useUserStore = defineStore('user', {
     },
     // 登录
     async login({ username, password }: LoginParams) {
-      const { data, code } = await loginApi({ username, password });
-      if (code === 200) {
+      const { data } = await loginApi({ username, password });
+      if (data !== null || data !== '') {
         this.setToken(data);
         this.setUser(username);
         router.push('home');

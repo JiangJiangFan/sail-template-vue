@@ -19,7 +19,7 @@ function logout() {
 export interface ApiResponseData<T> {
   code: number;
   data: T;
-  message: string;
+  msg: string;
   meta: Meta;
 }
 
@@ -66,17 +66,16 @@ instance.interceptors.response.use(
     }
     switch (code) {
       case 200:
-        return apiData;
+        return { data: apiData.data ?? 'success', meta: apiData.meta ?? {} };
       case 10004:
+        ElMessage.info({ message: apiData.msg });
         return logout();
       default:
-        ElMessage.error({ message: apiData.msg || 'Error' });
+        ElMessage.error({ message: apiData.msg || 'error' });
         return Promise.reject(apiData.msg);
     }
   },
   (err) => {
-    console.log(JSON.stringify(err));
-
     // 这里用来处理http常见错误，进行全局提示
     const { status } = err.response;
     console.log(status);

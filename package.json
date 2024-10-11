@@ -18,6 +18,7 @@
     "pinia": "^2.2.1",
     "pinia-plugin-persistedstate": "^3.2.1",
     "qs": "^6.13.0",
+    "quill": "2.0.2",
     "sass": "^1.77.8",
     "sass-loader": "^16.0.0",
     "unplugin-auto-import": "^0.18.2",
@@ -26,6 +27,7 @@
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-svg-loader": "^5.1.0",
     "vue": "^3.4.35",
+    "vue-i18n": "^10.0.0",
     "vue-router": "4"
   },
   "devDependencies": {

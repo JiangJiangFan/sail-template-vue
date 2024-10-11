@@ -1,4 +1,13 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { i18n } from '@/locales/i18n';
+// import { useI18n } from 'vue-i18n';
+// const { locale } = useI18n();
+const handleLang = () => {
+  i18n.global.locale === 'zh' ? 'en' : 'zh';
+  // console.log('lang', t);
+  console.log(i18n.global.locale);
+};
+</script>
 
 <template>
   <div class="header">
@@ -10,6 +19,7 @@
       <div>
         <svg-icon name="theme" />
       </div>
+      <div @click="handleLang"><svg-icon name="lang" /></div>
     </div>
     <div class="profile-img">
       <svg-icon name="avatar" />
@@ -59,7 +69,7 @@
   margin-left: auto;
   flex-shrink: 0;
   > div {
-    margin-left: 20px;
+    margin-left: 10px;
   }
 }
 
